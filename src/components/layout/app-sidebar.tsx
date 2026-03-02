@@ -7,6 +7,11 @@ import { cn } from "@/lib/utils";
 import { APP_CONFIG } from "@/lib/config";
 import {
   LayoutDashboard,
+  Map,
+  Route,
+  Radar,
+  ShieldAlert,
+  Building2,
   ChevronLeft,
   ChevronRight,
   Lightbulb,
@@ -23,19 +28,19 @@ import {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  // Dashboard Builder agent: add 3-5 feature page nav items here.
-  // Example: { href: "/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/", label: "Command Center", icon: LayoutDashboard },
+  { href: "/map-view", label: "Community Map", icon: Map },
+  { href: "/routes", label: "Route Management", icon: Route },
+  { href: "/tracking", label: "GPS Tracking", icon: Radar },
+  { href: "/alerts", label: "Security Alerts", icon: ShieldAlert },
+  { href: "/communities", label: "Communities", icon: Building2 },
 ];
 
 function SidebarLogo({ collapsed }: { collapsed: boolean }) {
   return (
     <div className="p-4 border-b border-border/60 flex items-center gap-3">
-      {/* Agent: replace the letter icon with a relevant Lucide icon if appropriate */}
       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-        <span className="text-primary font-bold text-sm font-mono">
-          {APP_CONFIG.appName.charAt(0)}
-        </span>
+        <Radar className="w-4 h-4 text-primary" />
       </div>
       {!collapsed && (
         <div className="overflow-hidden">

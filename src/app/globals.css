@@ -110,9 +110,9 @@
         --primary-h with domain-appropriate oklch values.
         See references/design-system.md for the 14-domain color table.
         QA rejects builds where --primary stays oklch(0.205 0 0). !! */
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.65 0.20 220);
   --primary-foreground: oklch(0.985 0 0);
-  --primary-h: 270; /* Integer hue extracted from --primary */
+  --primary-h: 220; /* Electric blue — GPS/radar/mapping feel */
 
   /* ── Derived Color Tokens ────────────────────────────────── */
   --section-dark: oklch(0.10 0.02 var(--primary-h));
@@ -133,22 +133,22 @@
   /* ── Borders & Inputs ────────────────────────────────────── */
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.65 0.20 220);
 
   /* ── Chart Colors ────────────────────────────────────────────
      Layout Builder harmonizes to primary hue. See design-system.md. */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: oklch(0.65 0.20 220);
+  --chart-2: oklch(0.70 0.15 180);
+  --chart-3: oklch(0.55 0.18 260);
+  --chart-4: oklch(0.75 0.16 160);
+  --chart-5: oklch(0.60 0.12 200);
 
   /* ── Sidebar Colors ──────────────────────────────────────────
      After color override: --sidebar-primary and --sidebar-ring
      should match --primary.                                     */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.65 0.20 220);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
@@ -965,6 +965,36 @@
     box-shadow: 2px 2px 0 oklch(0.10 0 0);
   }
 
+}
+
+/* ── Staggered card reveal animation ──────────────────────── */
+@keyframes fade-up-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up-in {
+  animation-name: fade-up-in;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+/* ── Pulse ring animation for alert dots ───────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Proposal CTA back link ────────────────────────────────── */
+.cta-back-link {
+  color: oklch(0.92 0 0 / 0.35);
+  transition: color var(--t-interactive);
+}
+.cta-back-link:hover {
+  color: oklch(0.92 0 0 / 0.60);
 }
 
 /* ── Frame utility classes ─────────────────────────────────── */

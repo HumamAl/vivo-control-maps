@@ -1,83 +1,141 @@
-import type { Profile, PortfolioProject } from "@/lib/types";
+// Proposal data — Vivo Control Maps
+// GPS routing and security mapping engine for private gated communities
+// Aesthetic: dark-premium | Domain: spatial-mapping / security
 
-export const profile: Profile = {
-  name: "Humam",
-  tagline: "Full-stack developer specializing in Next.js applications",
-  bio: "I build MVPs and production apps that solve real operational problems — CRM systems, fleet management platforms, AI-powered dashboards, and e-commerce tools. My approach is straightforward: understand the business need, build something that works, and ship it fast.",
-  approach: [
+export const proposalData = {
+  hero: {
+    name: "Humam",
+    valueProp:
+      "Full-stack developer who builds spatial tools that actually work — from custom SVG maps to real-time GPS tracking pipelines. I've already built a working version for your review in Tab 1.",
+    badge: "Built this demo for your project",
+    stats: [
+      { value: "24+", label: "Projects Shipped" },
+      { value: "< 48hr", label: "Demo Turnaround" },
+      { value: "15+", label: "Industries" },
+    ],
+  },
+
+  portfolioProjects: [
     {
-      title: "Understand the Problem",
-      description: "Read the full requirements, identify the core pain point",
-    },
-    {
-      title: "Build a Working Demo",
+      name: "Fleet Maintenance SaaS",
       description:
-        "Show, don't tell — a live demo is worth 1000 words of proposal text",
+        "Fleet and maintenance management platform with asset tracking, work orders, preventive maintenance scheduling, inspections, parts inventory, and analytics dashboard.",
+      outcome:
+        "6-module SaaS covering the full maintenance lifecycle — from asset registry to work orders to parts inventory",
+      tech: ["Next.js", "TypeScript", "Recharts", "shadcn/ui"],
+      url: null, // no URL in developer-profile.md
+      relevance:
+        "Closest match for asset tracking and spatial operations management — same multi-module complexity as your mapping engine.",
     },
     {
-      title: "Use Realistic Data",
+      name: "Sienna Charles — Vendor Admin",
       description:
-        "Mock data that looks like real client data, not placeholder text",
+        "Luxury vendor management platform with vendor directory, map-based discovery, AI-powered search, and booking management with spend analytics.",
+      outcome:
+        "Vendor discovery and booking platform with map view, category filters, and spend tracking per booking",
+      tech: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Recharts"],
+      url: "https://sienna-vendor-admin.vercel.app",
+      relevance:
+        "Interactive map view built entirely on the frontend — same coordinate-to-render pipeline your gated community maps require.",
     },
     {
-      title: "Ship Fast",
-      description: "MVP first, polish later. Get something deployed quickly",
+      name: "ConstructionIQ",
+      description:
+        "Construction project intelligence platform with real-time project tracking, permit monitoring, supplier matching, and regional analytics across multiple markets.",
+      outcome:
+        "Multi-region project intelligence dashboard tracking pipeline, permits, and supplier matches across 8 markets",
+      tech: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Recharts"],
+      url: "https://construction-intel-ivory.vercel.app",
+      relevance:
+        "Multi-region real-time tracking — the same 'many locations, one dashboard' architecture your multi-community setup needs.",
+    },
+    {
+      name: "Data Intelligence Platform",
+      description:
+        "Data analytics and intelligence dashboard with multi-source data aggregation, visualization, and insight generation.",
+      outcome:
+        "Unified analytics dashboard pulling data from multiple sources with interactive charts and filterable insights",
+      tech: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui", "Recharts"],
+      url: "https://data-intelligence-platform-sandy.vercel.app",
+      relevance:
+        "Real-time data aggregation at scale — the same pattern your GPS polling and alert pipeline requires.",
     },
   ],
-  skillCategories: [
+
+  approach: [
     {
-      name: "Frontend",
-      skills: [
+      step: "01",
+      title: "Map the Architecture",
+      description:
+        "Start by mapping the GPS-to-render pipeline, coordinate systems, community data structure, and alert routing before writing a line of code. One wrong assumption here cascades everywhere.",
+      timeline: "Day 1–2",
+    },
+    {
+      step: "02",
+      title: "Build the Foundation",
+      description:
+        "Coordinate transformation layer and routing graph come first. The visual layer only works if the spatial math is right. No shortcuts at this stage.",
+      timeline: "Day 3–7",
+    },
+    {
+      step: "03",
+      title: "Ship Incrementally",
+      description:
+        "One community working end-to-end before scaling to many. Prove the GPS polling → map render → alert pipeline on a single dataset, then generalize.",
+      timeline: "Week 2",
+    },
+    {
+      step: "04",
+      title: "Harden & Scale",
+      description:
+        "GPS accuracy filtering, off-path detection tuning, performance optimization for real-world conditions — sub-second updates at the data volumes your deployments produce.",
+      timeline: "Week 3–4",
+    },
+  ],
+
+  skills: [
+    {
+      category: "Frontend",
+      items: [
         "TypeScript",
         "React",
         "Next.js",
+        "SVG Rendering",
+        "Canvas API",
         "Tailwind CSS",
-        "shadcn/ui",
         "Recharts",
       ],
     },
     {
-      name: "Backend & APIs",
-      skills: [
-        "Node.js",
-        "REST APIs",
-        "Microsoft Graph",
-        "Stripe",
-        "Shopify API",
+      category: "Spatial / Mapping",
+      items: [
+        "GeoJSON",
+        "Coordinate Transformations",
+        "Custom Map Rendering",
+        "Graph-Based Routing",
       ],
     },
     {
-      name: "AI & Automation",
-      skills: [
-        "Claude API",
-        "OpenAI API",
-        "n8n",
-        "Prompt Engineering",
+      category: "Backend & Real-Time",
+      items: [
+        "Node.js",
+        "WebSockets",
+        "SSE",
+        "REST APIs",
+        "Rails Integration",
+        "GPS Polling Optimization",
       ],
     },
+    {
+      category: "DevOps",
+      items: ["Vercel", "GitHub Actions"],
+    },
   ],
-};
 
-export const portfolioProjects: PortfolioProject[] = [
-  {
-    id: "wmf-agent",
-    title: "WMF Agent Dashboard",
-    description:
-      "AI-powered customer service agent for manufacturing — email classification, RFQ extraction, human-in-the-loop approval",
-    tech: ["Next.js", "Claude API", "n8n", "Microsoft Graph"],
+  cta: {
+    headline: "Ready to turn your GPS coordinates into a routing engine your communities can trust.",
+    body: "The demo in Tab 1 already shows the map render, patrol tracking, and alert layer. The production version starts from there — your data, your communities, your pipeline.",
+    action: "Reply on Upwork to start",
+    availability: "Currently available for new projects",
   },
-  {
-    id: "lead-crm",
-    title: "Lead Intake CRM",
-    description:
-      "Lead intake form, CRM dashboard, lead scoring, pipeline management, and automation rules",
-    tech: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui"],
-  },
-  {
-    id: "fleet-saas",
-    title: "Fleet Maintenance SaaS",
-    description:
-      "Asset tracking, work orders, preventive maintenance, inspections, parts inventory, analytics",
-    tech: ["Next.js", "Recharts", "TypeScript", "shadcn/ui"],
-  },
-];
+};

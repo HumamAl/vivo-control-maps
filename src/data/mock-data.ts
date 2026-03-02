@@ -1,12 +1,440 @@
-// App-specific mock data goes here
-// Replace with domain-specific data for each proposal app
-//
-// Guidelines:
-// - 10-20 items minimum per dataset
-// - Realistic names, dates, amounts
-// - Include edge cases (overdue, high-priority, empty states)
-// - All data typed in lib/types.ts
+import type {
+  Community,
+  MapZone,
+  RouteNode,
+  RoutePath,
+  GPSReading,
+  SecurityAlert,
+  PatrolUnit,
+  GPSDevice,
+  MonthlyMetric,
+} from "@/lib/types";
 
-export const mockData = {
-  // TODO: Replace with app-specific data
+// ── Communities ──────────────────────────────────────────────────────────
+
+export const communities: Community[] = [
+  {
+    id: "comm-1",
+    name: "The Preserves at Eagle Ridge",
+    totalProperties: 342,
+    totalZones: 8,
+    activeRoutes: 12,
+    gpsDevices: 18,
+    coveragePercent: 94.2,
+    lastUpdated: "2026-03-01T14:32:00Z",
+  },
+  {
+    id: "comm-2",
+    name: "Lakewood Estates",
+    totalProperties: 186,
+    totalZones: 5,
+    activeRoutes: 7,
+    gpsDevices: 11,
+    coveragePercent: 91.8,
+    lastUpdated: "2026-03-01T14:28:00Z",
+  },
+  {
+    id: "comm-3",
+    name: "Sterling Oaks Gated Community",
+    totalProperties: 528,
+    totalZones: 12,
+    activeRoutes: 19,
+    gpsDevices: 24,
+    coveragePercent: 96.1,
+    lastUpdated: "2026-03-01T14:35:00Z",
+  },
+  {
+    id: "comm-4",
+    name: "Harbour Point Village",
+    totalProperties: 95,
+    totalZones: 4,
+    activeRoutes: 5,
+    gpsDevices: 7,
+    coveragePercent: 88.5,
+    lastUpdated: "2026-03-01T14:20:00Z",
+  },
+];
+
+// ── Map Zones (for The Preserves at Eagle Ridge) ─────────────────────────
+
+export const mapZones: MapZone[] = [
+  { id: "zone-1", communityId: "comm-1", name: "Main Gate Entry", type: "entry-gate", coordinates: [{ x: 50, y: 480 }, { x: 90, y: 480 }, { x: 90, y: 520 }, { x: 50, y: 520 }], properties: 0, color: "var(--chart-1)" },
+  { id: "zone-2", communityId: "comm-1", name: "Phase 1 Residential", type: "residential", coordinates: [{ x: 120, y: 100 }, { x: 350, y: 100 }, { x: 350, y: 300 }, { x: 120, y: 300 }], properties: 86, color: "var(--chart-2)" },
+  { id: "zone-3", communityId: "comm-1", name: "Phase 2 Residential", type: "residential", coordinates: [{ x: 380, y: 100 }, { x: 600, y: 100 }, { x: 600, y: 300 }, { x: 380, y: 300 }], properties: 112, color: "var(--chart-3)" },
+  { id: "zone-4", communityId: "comm-1", name: "Clubhouse & Amenities", type: "recreational", coordinates: [{ x: 250, y: 330 }, { x: 450, y: 330 }, { x: 450, y: 430 }, { x: 250, y: 430 }], properties: 0, color: "var(--chart-4)" },
+  { id: "zone-5", communityId: "comm-1", name: "Phase 3 Residential", type: "residential", coordinates: [{ x: 120, y: 460 }, { x: 350, y: 460 }, { x: 350, y: 650 }, { x: 120, y: 650 }], properties: 94, color: "var(--chart-5)" },
+  { id: "zone-6", communityId: "comm-1", name: "Commercial Strip", type: "commercial", coordinates: [{ x: 630, y: 200 }, { x: 750, y: 200 }, { x: 750, y: 400 }, { x: 630, y: 400 }], properties: 12, color: "var(--chart-1)" },
+  { id: "zone-7", communityId: "comm-1", name: "Service Entrance", type: "entry-gate", coordinates: [{ x: 700, y: 480 }, { x: 750, y: 480 }, { x: 750, y: 520 }, { x: 700, y: 520 }], properties: 0, color: "var(--chart-2)" },
+  { id: "zone-8", communityId: "comm-1", name: "Restricted Utility Area", type: "restricted", coordinates: [{ x: 380, y: 460 }, { x: 600, y: 460 }, { x: 600, y: 560 }, { x: 380, y: 560 }], properties: 0, color: "var(--destructive)" },
+];
+
+// ── Route Nodes ──────────────────────────────────────────────────────────
+
+export const routeNodes: RouteNode[] = [
+  { id: "node-1", communityId: "comm-1", x: 70, y: 500, label: "Main Gate", type: "gate" },
+  { id: "node-2", communityId: "comm-1", x: 200, y: 500, label: "Entry Roundabout", type: "intersection" },
+  { id: "node-3", communityId: "comm-1", x: 200, y: 350, label: "Central Junction", type: "intersection" },
+  { id: "node-4", communityId: "comm-1", x: 200, y: 200, label: "Phase 1 North", type: "waypoint" },
+  { id: "node-5", communityId: "comm-1", x: 350, y: 200, label: "Phase 1-2 Crossing", type: "intersection" },
+  { id: "node-6", communityId: "comm-1", x: 500, y: 200, label: "Phase 2 Center", type: "waypoint" },
+  { id: "node-7", communityId: "comm-1", x: 350, y: 380, label: "Clubhouse Entrance", type: "checkpoint" },
+  { id: "node-8", communityId: "comm-1", x: 500, y: 380, label: "Pool Area", type: "poi" },
+  { id: "node-9", communityId: "comm-1", x: 200, y: 550, label: "Phase 3 South", type: "waypoint" },
+  { id: "node-10", communityId: "comm-1", x: 350, y: 550, label: "Park Loop", type: "waypoint" },
+  { id: "node-11", communityId: "comm-1", x: 690, y: 300, label: "Commercial Access", type: "intersection" },
+  { id: "node-12", communityId: "comm-1", x: 725, y: 500, label: "Service Gate", type: "gate" },
+  { id: "node-13", communityId: "comm-1", x: 500, y: 500, label: "Utility Access", type: "checkpoint" },
+  { id: "node-14", communityId: "comm-1", x: 350, y: 350, label: "Central Park", type: "poi" },
+];
+
+// ── Route Paths ──────────────────────────────────────────────────────────
+
+export const routePaths: RoutePath[] = [
+  {
+    id: "route-1",
+    communityId: "comm-1",
+    name: "Main Patrol Loop",
+    status: "active",
+    nodes: ["node-1", "node-2", "node-3", "node-4", "node-5", "node-6", "node-11", "node-12", "node-13", "node-10", "node-9", "node-2", "node-1"],
+    distanceMeters: 3200,
+    estimatedMinutes: 22,
+    lastUsed: "2026-03-01T14:15:00Z",
+  },
+  {
+    id: "route-2",
+    communityId: "comm-1",
+    name: "Phase 1 Residential Sweep",
+    status: "active",
+    nodes: ["node-3", "node-4", "node-5", "node-14", "node-3"],
+    distanceMeters: 1100,
+    estimatedMinutes: 8,
+    lastUsed: "2026-03-01T13:45:00Z",
+  },
+  {
+    id: "route-3",
+    communityId: "comm-1",
+    name: "Phase 2 Residential Sweep",
+    status: "active",
+    nodes: ["node-5", "node-6", "node-8", "node-7", "node-5"],
+    distanceMeters: 1350,
+    estimatedMinutes: 9,
+    lastUsed: "2026-03-01T14:00:00Z",
+  },
+  {
+    id: "route-4",
+    communityId: "comm-1",
+    name: "Perimeter Check",
+    status: "active",
+    nodes: ["node-1", "node-2", "node-9", "node-10", "node-13", "node-12", "node-11", "node-6", "node-4", "node-3", "node-2", "node-1"],
+    distanceMeters: 4100,
+    estimatedMinutes: 28,
+    lastUsed: "2026-03-01T12:30:00Z",
+  },
+  {
+    id: "route-5",
+    communityId: "comm-1",
+    name: "Clubhouse & Amenity Route",
+    status: "active",
+    nodes: ["node-3", "node-14", "node-7", "node-8", "node-7", "node-3"],
+    distanceMeters: 800,
+    estimatedMinutes: 6,
+    lastUsed: "2026-03-01T14:10:00Z",
+  },
+  {
+    id: "route-6",
+    communityId: "comm-1",
+    name: "South Gate Express",
+    status: "active",
+    nodes: ["node-1", "node-2", "node-9", "node-10", "node-13", "node-12"],
+    distanceMeters: 1800,
+    estimatedMinutes: 12,
+    lastUsed: "2026-03-01T13:20:00Z",
+  },
+  {
+    id: "route-7",
+    communityId: "comm-1",
+    name: "Utility Zone Inspection",
+    status: "maintenance",
+    nodes: ["node-13", "node-10", "node-9"],
+    distanceMeters: 600,
+    estimatedMinutes: 5,
+    lastUsed: "2026-02-28T09:00:00Z",
+  },
+  {
+    id: "route-8",
+    communityId: "comm-1",
+    name: "Emergency Response Path",
+    status: "active",
+    nodes: ["node-1", "node-2", "node-3", "node-7"],
+    distanceMeters: 950,
+    estimatedMinutes: 4,
+    lastUsed: "2026-02-27T22:15:00Z",
+  },
+  {
+    id: "route-9",
+    communityId: "comm-2",
+    name: "Lakewood Main Loop",
+    status: "active",
+    nodes: [],
+    distanceMeters: 2100,
+    estimatedMinutes: 15,
+    lastUsed: "2026-03-01T14:05:00Z",
+  },
+  {
+    id: "route-10",
+    communityId: "comm-3",
+    name: "Sterling Oaks Full Patrol",
+    status: "active",
+    nodes: [],
+    distanceMeters: 5200,
+    estimatedMinutes: 35,
+    lastUsed: "2026-03-01T14:30:00Z",
+  },
+  {
+    id: "route-11",
+    communityId: "comm-3",
+    name: "Sterling East Wing",
+    status: "active",
+    nodes: [],
+    distanceMeters: 1800,
+    estimatedMinutes: 12,
+    lastUsed: "2026-03-01T13:55:00Z",
+  },
+  {
+    id: "route-12",
+    communityId: "comm-4",
+    name: "Harbour Point Perimeter",
+    status: "inactive",
+    nodes: [],
+    distanceMeters: 1400,
+    estimatedMinutes: 10,
+    lastUsed: "2026-02-26T08:00:00Z",
+  },
+];
+
+// ── GPS Readings (live tracking simulation) ──────────────────────────────
+
+export const gpsReadings: GPSReading[] = [
+  { id: "gps-1", deviceId: "dev-1", communityId: "comm-1", lat: 33.4892, lng: -112.0741, mapX: 210, mapY: 490, accuracy: 3.2, heading: 45, speed: 8.5, timestamp: "2026-03-01T14:35:12Z", onRoute: true },
+  { id: "gps-2", deviceId: "dev-2", communityId: "comm-1", lat: 33.4901, lng: -112.0728, mapX: 380, mapY: 210, accuracy: 2.8, heading: 90, speed: 12.1, timestamp: "2026-03-01T14:35:10Z", onRoute: true },
+  { id: "gps-3", deviceId: "dev-3", communityId: "comm-1", lat: 33.4886, lng: -112.0755, mapX: 140, mapY: 340, accuracy: 5.1, heading: 180, speed: 0, timestamp: "2026-03-01T14:34:55Z", onRoute: false },
+  { id: "gps-4", deviceId: "dev-4", communityId: "comm-1", lat: 33.4895, lng: -112.0733, mapX: 480, mapY: 380, accuracy: 2.1, heading: 270, speed: 6.3, timestamp: "2026-03-01T14:35:08Z", onRoute: true },
+  { id: "gps-5", deviceId: "dev-5", communityId: "comm-1", lat: 33.4889, lng: -112.0748, mapX: 320, mapY: 545, accuracy: 4.5, heading: 135, speed: 10.2, timestamp: "2026-03-01T14:35:05Z", onRoute: true },
+  { id: "gps-6", deviceId: "dev-6", communityId: "comm-2", lat: 33.5012, lng: -112.0612, mapX: 250, mapY: 300, accuracy: 3.8, heading: 0, speed: 7.8, timestamp: "2026-03-01T14:35:00Z", onRoute: true },
+  { id: "gps-7", deviceId: "dev-7", communityId: "comm-3", lat: 33.4755, lng: -112.0801, mapX: 400, mapY: 250, accuracy: 2.5, heading: 315, speed: 9.4, timestamp: "2026-03-01T14:35:11Z", onRoute: true },
+  { id: "gps-8", deviceId: "dev-8", communityId: "comm-1", lat: 33.4898, lng: -112.0722, mapX: 650, mapY: 310, accuracy: 8.2, heading: 60, speed: 0, timestamp: "2026-03-01T14:33:00Z", onRoute: false },
+  { id: "gps-9", deviceId: "dev-9", communityId: "comm-1", lat: 33.4903, lng: -112.0738, mapX: 350, mapY: 350, accuracy: 1.8, heading: 220, speed: 5.1, timestamp: "2026-03-01T14:35:14Z", onRoute: true },
+  { id: "gps-10", deviceId: "dev-10", communityId: "comm-3", lat: 33.4761, lng: -112.0788, mapX: 180, mapY: 420, accuracy: 3.0, heading: 90, speed: 11.3, timestamp: "2026-03-01T14:35:09Z", onRoute: true },
+];
+
+// ── Security Alerts ──────────────────────────────────────────────────────
+
+export const securityAlerts: SecurityAlert[] = [
+  {
+    id: "alert-1",
+    communityId: "comm-1",
+    type: "off-path",
+    severity: "warning",
+    status: "active",
+    deviceId: "dev-3",
+    description: "Patrol unit P-03 deviated 45m from Phase 1 Residential Sweep route near Central Junction",
+    location: { x: 140, y: 340 },
+    timestamp: "2026-03-01T14:34:55Z",
+  },
+  {
+    id: "alert-2",
+    communityId: "comm-1",
+    type: "signal-loss",
+    severity: "critical",
+    status: "active",
+    deviceId: "dev-8",
+    description: "GPS signal degraded to 8.2m accuracy at Commercial Strip — possible interference or obstruction",
+    location: { x: 650, y: 310 },
+    timestamp: "2026-03-01T14:33:00Z",
+  },
+  {
+    id: "alert-3",
+    communityId: "comm-3",
+    type: "unauthorized-entry",
+    severity: "critical",
+    status: "acknowledged",
+    deviceId: "dev-11",
+    description: "Unregistered device detected near Sterling Oaks north perimeter gate",
+    location: { x: 300, y: 50 },
+    timestamp: "2026-03-01T14:20:00Z",
+  },
+  {
+    id: "alert-4",
+    communityId: "comm-1",
+    type: "zone-breach",
+    severity: "warning",
+    status: "resolved",
+    deviceId: "dev-5",
+    description: "Contractor vehicle entered Restricted Utility Area without clearance",
+    location: { x: 420, y: 490 },
+    timestamp: "2026-03-01T13:45:00Z",
+    resolvedAt: "2026-03-01T13:52:00Z",
+  },
+  {
+    id: "alert-5",
+    communityId: "comm-2",
+    type: "speed-violation",
+    severity: "info",
+    status: "resolved",
+    deviceId: "dev-6",
+    description: "Delivery vehicle exceeded 25 km/h speed limit on Lakewood Main Drive",
+    location: { x: 250, y: 300 },
+    timestamp: "2026-03-01T12:15:00Z",
+    resolvedAt: "2026-03-01T12:15:00Z",
+  },
+  {
+    id: "alert-6",
+    communityId: "comm-1",
+    type: "perimeter-alert",
+    severity: "warning",
+    status: "resolved",
+    deviceId: "dev-12",
+    description: "Motion detected at Main Gate after-hours — verified as resident return",
+    location: { x: 70, y: 500 },
+    timestamp: "2026-03-01T02:30:00Z",
+    resolvedAt: "2026-03-01T02:32:00Z",
+  },
+  {
+    id: "alert-7",
+    communityId: "comm-4",
+    type: "signal-loss",
+    severity: "warning",
+    status: "active",
+    deviceId: "dev-14",
+    description: "Harbour Point patrol device offline for 18 minutes — last known position near south dock",
+    location: { x: 400, y: 600 },
+    timestamp: "2026-03-01T14:17:00Z",
+  },
+  {
+    id: "alert-8",
+    communityId: "comm-1",
+    type: "off-path",
+    severity: "info",
+    status: "resolved",
+    deviceId: "dev-1",
+    description: "Minor route deviation (12m) during Main Patrol Loop — returned to path within 30 seconds",
+    location: { x: 500, y: 395 },
+    timestamp: "2026-03-01T11:05:00Z",
+    resolvedAt: "2026-03-01T11:05:30Z",
+  },
+  {
+    id: "alert-9",
+    communityId: "comm-3",
+    type: "zone-breach",
+    severity: "critical",
+    status: "active",
+    deviceId: "dev-15",
+    description: "Unknown vehicle in Sterling Oaks restricted maintenance area — no permit on file",
+    location: { x: 550, y: 400 },
+    timestamp: "2026-03-01T14:28:00Z",
+  },
+  {
+    id: "alert-10",
+    communityId: "comm-1",
+    type: "unauthorized-entry",
+    severity: "warning",
+    status: "resolved",
+    deviceId: "dev-16",
+    description: "Tailgating attempt detected at Service Gate — gate held open for unregistered vehicle",
+    location: { x: 725, y: 500 },
+    timestamp: "2026-02-28T19:45:00Z",
+    resolvedAt: "2026-02-28T19:48:00Z",
+  },
+  {
+    id: "alert-11",
+    communityId: "comm-1",
+    type: "speed-violation",
+    severity: "info",
+    status: "resolved",
+    deviceId: "dev-4",
+    description: "Patrol unit exceeded zone speed limit briefly during shift change transition",
+    location: { x: 350, y: 200 },
+    timestamp: "2026-02-28T14:00:00Z",
+    resolvedAt: "2026-02-28T14:00:30Z",
+  },
+  {
+    id: "alert-12",
+    communityId: "comm-2",
+    type: "perimeter-alert",
+    severity: "critical",
+    status: "resolved",
+    deviceId: "dev-17",
+    description: "Fence line sensor triggered at Lakewood Estates west boundary",
+    location: { x: 50, y: 250 },
+    timestamp: "2026-02-28T03:12:00Z",
+    resolvedAt: "2026-02-28T03:25:00Z",
+  },
+];
+
+// ── Patrol Units ─────────────────────────────────────────────────────────
+
+export const patrolUnits: PatrolUnit[] = [
+  { id: "patrol-1", communityId: "comm-1", name: "P-01 Eagle", status: "on-route", currentRoute: "route-1", position: { x: 210, y: 490 }, lastCheckIn: "2026-03-01T14:35:12Z", coveragePercent: 78 },
+  { id: "patrol-2", communityId: "comm-1", name: "P-02 Hawk", status: "on-route", currentRoute: "route-3", position: { x: 380, y: 210 }, lastCheckIn: "2026-03-01T14:35:10Z", coveragePercent: 65 },
+  { id: "patrol-3", communityId: "comm-1", name: "P-03 Falcon", status: "off-route", currentRoute: "route-2", position: { x: 140, y: 340 }, lastCheckIn: "2026-03-01T14:34:55Z", coveragePercent: 42 },
+  { id: "patrol-4", communityId: "comm-1", name: "P-04 Osprey", status: "on-route", currentRoute: "route-5", position: { x: 480, y: 380 }, lastCheckIn: "2026-03-01T14:35:08Z", coveragePercent: 91 },
+  { id: "patrol-5", communityId: "comm-2", name: "L-01 Shore", status: "on-route", currentRoute: "route-9", position: { x: 250, y: 300 }, lastCheckIn: "2026-03-01T14:35:00Z", coveragePercent: 72 },
+  { id: "patrol-6", communityId: "comm-3", name: "S-01 Oak", status: "on-route", currentRoute: "route-10", position: { x: 400, y: 250 }, lastCheckIn: "2026-03-01T14:35:11Z", coveragePercent: 83 },
+  { id: "patrol-7", communityId: "comm-3", name: "S-02 Elm", status: "responding", currentRoute: "route-11", position: { x: 180, y: 420 }, lastCheckIn: "2026-03-01T14:35:09Z", coveragePercent: 56 },
+  { id: "patrol-8", communityId: "comm-4", name: "H-01 Harbor", status: "idle", currentRoute: "route-12", position: { x: 300, y: 350 }, lastCheckIn: "2026-03-01T14:17:00Z", coveragePercent: 0 },
+];
+
+// ── GPS Devices ──────────────────────────────────────────────────────────
+
+export const gpsDevices: GPSDevice[] = [
+  { id: "dev-1", communityId: "comm-1", label: "P-01 Eagle Vehicle", type: "patrol", status: "online", batteryPercent: 87, lastSeen: "2026-03-01T14:35:12Z", accuracy: 3.2 },
+  { id: "dev-2", communityId: "comm-1", label: "P-02 Hawk Vehicle", type: "patrol", status: "online", batteryPercent: 92, lastSeen: "2026-03-01T14:35:10Z", accuracy: 2.8 },
+  { id: "dev-3", communityId: "comm-1", label: "P-03 Falcon Vehicle", type: "patrol", status: "online", batteryPercent: 45, lastSeen: "2026-03-01T14:34:55Z", accuracy: 5.1 },
+  { id: "dev-4", communityId: "comm-1", label: "P-04 Osprey Vehicle", type: "patrol", status: "online", batteryPercent: 78, lastSeen: "2026-03-01T14:35:08Z", accuracy: 2.1 },
+  { id: "dev-5", communityId: "comm-1", label: "Contractor Van #12", type: "contractor", status: "online", batteryPercent: 63, lastSeen: "2026-03-01T14:35:05Z", accuracy: 4.5 },
+  { id: "dev-6", communityId: "comm-2", label: "L-01 Shore Vehicle", type: "patrol", status: "online", batteryPercent: 71, lastSeen: "2026-03-01T14:35:00Z", accuracy: 3.8 },
+  { id: "dev-7", communityId: "comm-3", label: "S-01 Oak Vehicle", type: "patrol", status: "online", batteryPercent: 95, lastSeen: "2026-03-01T14:35:11Z", accuracy: 2.5 },
+  { id: "dev-8", communityId: "comm-1", label: "Delivery Unit #7", type: "delivery", status: "low-signal", batteryPercent: 34, lastSeen: "2026-03-01T14:33:00Z", accuracy: 8.2 },
+  { id: "dev-9", communityId: "comm-1", label: "Gate Sensor MG-01", type: "patrol", status: "online", batteryPercent: 100, lastSeen: "2026-03-01T14:35:14Z", accuracy: 1.8 },
+  { id: "dev-10", communityId: "comm-3", label: "S-02 Elm Vehicle", type: "patrol", status: "online", batteryPercent: 82, lastSeen: "2026-03-01T14:35:09Z", accuracy: 3.0 },
+  { id: "dev-11", communityId: "comm-3", label: "North Gate Sensor", type: "patrol", status: "online", batteryPercent: 100, lastSeen: "2026-03-01T14:20:00Z", accuracy: 1.5 },
+  { id: "dev-12", communityId: "comm-1", label: "Main Gate Sensor", type: "patrol", status: "online", batteryPercent: 100, lastSeen: "2026-03-01T14:35:00Z", accuracy: 1.2 },
+  { id: "dev-13", communityId: "comm-1", label: "Resident Beacon #204", type: "resident", status: "offline", batteryPercent: 0, lastSeen: "2026-02-28T18:00:00Z", accuracy: 0 },
+  { id: "dev-14", communityId: "comm-4", label: "H-01 Harbor Vehicle", type: "patrol", status: "offline", batteryPercent: 12, lastSeen: "2026-03-01T14:17:00Z", accuracy: 6.4 },
+  { id: "dev-15", communityId: "comm-3", label: "Unknown Vehicle", type: "contractor", status: "online", batteryPercent: 55, lastSeen: "2026-03-01T14:28:00Z", accuracy: 4.1 },
+  { id: "dev-16", communityId: "comm-1", label: "Service Gate Sensor", type: "patrol", status: "online", batteryPercent: 100, lastSeen: "2026-03-01T14:35:00Z", accuracy: 1.1 },
+  { id: "dev-17", communityId: "comm-2", label: "West Fence Sensor", type: "patrol", status: "online", batteryPercent: 98, lastSeen: "2026-03-01T14:34:00Z", accuracy: 2.0 },
+  { id: "dev-18", communityId: "comm-1", label: "Contractor Van #8", type: "contractor", status: "online", batteryPercent: 58, lastSeen: "2026-03-01T14:30:00Z", accuracy: 3.5 },
+];
+
+// ── Monthly Metrics (12 months) ──────────────────────────────────────────
+
+export const monthlyMetrics: MonthlyMetric[] = [
+  { month: "Apr 2025", alerts: 48, routesCompleted: 312, avgResponseTime: 4.8, gpsAccuracy: 3.9, coveragePercent: 86.2 },
+  { month: "May 2025", alerts: 52, routesCompleted: 345, avgResponseTime: 4.5, gpsAccuracy: 3.7, coveragePercent: 87.1 },
+  { month: "Jun 2025", alerts: 61, routesCompleted: 328, avgResponseTime: 5.1, gpsAccuracy: 4.2, coveragePercent: 85.8 },
+  { month: "Jul 2025", alerts: 73, routesCompleted: 302, avgResponseTime: 5.8, gpsAccuracy: 4.5, coveragePercent: 84.3 },
+  { month: "Aug 2025", alerts: 68, routesCompleted: 318, avgResponseTime: 5.2, gpsAccuracy: 4.1, coveragePercent: 86.0 },
+  { month: "Sep 2025", alerts: 55, routesCompleted: 356, avgResponseTime: 4.3, gpsAccuracy: 3.5, coveragePercent: 88.4 },
+  { month: "Oct 2025", alerts: 42, routesCompleted: 378, avgResponseTime: 3.9, gpsAccuracy: 3.2, coveragePercent: 90.1 },
+  { month: "Nov 2025", alerts: 38, routesCompleted: 391, avgResponseTime: 3.6, gpsAccuracy: 3.0, coveragePercent: 91.5 },
+  { month: "Dec 2025", alerts: 45, routesCompleted: 365, avgResponseTime: 4.1, gpsAccuracy: 3.3, coveragePercent: 89.8 },
+  { month: "Jan 2026", alerts: 35, routesCompleted: 402, avgResponseTime: 3.4, gpsAccuracy: 2.9, coveragePercent: 92.3 },
+  { month: "Feb 2026", alerts: 31, routesCompleted: 415, avgResponseTime: 3.2, gpsAccuracy: 2.7, coveragePercent: 93.6 },
+  { month: "Mar 2026", alerts: 28, routesCompleted: 398, avgResponseTime: 3.1, gpsAccuracy: 2.8, coveragePercent: 94.2 },
+];
+
+// ── Dashboard Summary Stats ──────────────────────────────────────────────
+
+export const dashboardStats = {
+  totalCommunities: communities.length,
+  activeDevices: gpsDevices.filter(d => d.status === "online").length,
+  totalDevices: gpsDevices.length,
+  activeAlerts: securityAlerts.filter(a => a.status === "active").length,
+  totalRoutes: routePaths.filter(r => r.status === "active").length,
+  avgGPSAccuracy: 3.1,
+  avgResponseTime: 3.1,
+  patrolCoverage: 94.2,
+  onRouteUnits: patrolUnits.filter(u => u.status === "on-route").length,
+  totalPatrolUnits: patrolUnits.length,
 };

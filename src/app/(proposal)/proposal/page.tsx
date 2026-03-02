@@ -1,153 +1,288 @@
-// Proposal Builder agent replaces this content.
-// This placeholder demonstrates the correct structure and styling for Tab 3.
-//
-// Rules for the Proposal Builder:
-//   - Dark panel hero (--section-dark bg) with name, value prop, pulsing badge
-//   - Proof of Work: 3-4 portfolio projects using <ProjectCard> component
-//     Link only if liveUrl exists in developer-profile.md — never link to "#"
-//   - How I Work: 4-step process (steps can vary based on job)
-//   - Skills Grid: relevant tech only — use <SkillsGrid> component
-//   - Dark panel CTA at bottom: pulsing availability dot + "Reply on Upwork to start"
-//   - Signed "— Humam"
-//   - NO: hover:-translate-y-*, shadow-lg, rounded-xl, glassmorphism
-//   - NO: dead CTA links, buzzwords ("passionate", "innovative", "leverage")
-
-import { APP_CONFIG } from "@/lib/config";
-import { profile, portfolioProjects } from "@/data/proposal";
-import { ProjectCard } from "@/components/proposal/project-card";
-import { SkillsGrid } from "@/components/proposal/skills-grid";
+import { ExternalLink, TrendingUp } from "lucide-react";
+import { proposalData } from "@/data/proposal";
 
 export default function ProposalPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto px-6 py-8 space-y-12">
 
-        {/* ── Hero — dark panel ── */}
+      {/* ── Section 1: Hero (Project Brief) ─────────────────────── */}
+      <section
+        className="relative rounded-2xl overflow-hidden"
+        style={{ background: "oklch(0.06 0.02 var(--primary-h, 220))" }}
+      >
+        {/* Radial glow — dark-premium accent moment */}
         <div
-          className="rounded-lg p-8 space-y-4"
-          style={{ background: "var(--section-dark)" }}
-        >
-          {/* "Built this demo for your project" badge */}
-          <div className="inline-flex items-center gap-2">
-            <span className="relative inline-flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/60 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-            </span>
-            <span className="text-xs font-mono text-white/50 tracking-wider uppercase">
-              Built this demo for your project
-            </span>
-          </div>
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at top left, oklch(0.65 0.20 220 / 0.12), transparent 65%)",
+          }}
+        />
 
-          <div>
-            <h1 className="text-3xl font-light text-white/60">
-              Hi, I&apos;m{" "}
-              <span className="font-black text-white">{profile.name}</span>
-            </h1>
-            <p className="text-base text-white/60 mt-2 leading-relaxed max-w-2xl">
-              {profile.tagline}
-            </p>
-          </div>
+        <div className="relative z-10 p-8 md:p-12">
+          {/* Effort badge — mandatory */}
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium border text-white/80 px-3 py-1 rounded-full mb-6"
+            style={{
+              background: "oklch(1 0 0 / 0.06)",
+              borderColor: "oklch(1 0 0 / 0.12)",
+            }}
+          >
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-primary" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+            </span>
+            {proposalData.hero.badge}
+          </span>
 
-          <p className="text-sm text-white/50 leading-relaxed max-w-2xl">
-            {profile.bio}
+          {/* Role prefix */}
+          <p className="font-mono text-xs tracking-widest uppercase text-white/40 mb-4">
+            Full-Stack Developer · Spatial & Mapping Systems
           </p>
 
-          {/* Availability + CTA — text, not a dead button */}
-          <div className="pt-2 flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="relative inline-flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--success)]/60 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[color:var(--success)]" />
-              </span>
-              <span className="text-xs text-white/50">Currently available</span>
-            </div>
-            <span className="text-xs text-white/30">·</span>
-            <span className="text-xs font-medium text-primary">
-              Reply on Upwork to start
-            </span>
-          </div>
+          {/* Name headline — weight contrast */}
+          <h1 className="text-5xl md:text-6xl tracking-tight leading-none mb-4">
+            <span className="font-light text-white/70">Hi, I&apos;m</span>{" "}
+            <span className="font-black text-white">{proposalData.hero.name}</span>
+          </h1>
+
+          {/* Tailored value prop */}
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: "oklch(0.85 0 0 / 0.65)" }}>
+            {proposalData.hero.valueProp}
+          </p>
         </div>
 
-        {/* ── Proof of Work — portfolio projects ── */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Relevant Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {portfolioProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                title={project.title}
-                description={project.description}
-                tech={project.tech}
-                relevance={project.relevance}
-                outcome={project.outcome}
-                liveUrl={project.liveUrl}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ── How I Work ── */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">How I Work</h2>
-          <div className="space-y-4">
-            {profile.approach.map((step, i) => (
-              <div key={step.title} className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold font-mono shrink-0">
-                    {i + 1}
-                  </div>
-                  {i < profile.approach.length - 1 && (
-                    <div className="w-px flex-1 bg-border/60 mt-2" />
-                  )}
-                </div>
-                <div className="pb-5">
-                  <p className="text-sm font-medium">{step.title}</p>
-                  <p className="text-sm text-muted-foreground mt-0.5">
-                    {step.description}
-                  </p>
-                </div>
+        {/* Stats shelf */}
+        <div
+          className="relative z-10 px-8 py-5 border-t grid grid-cols-3 gap-4"
+          style={{
+            background: "oklch(1 0 0 / 0.04)",
+            borderColor: "oklch(1 0 0 / 0.08)",
+          }}
+        >
+          {proposalData.hero.stats.map((stat) => (
+            <div key={stat.label}>
+              <div
+                className="text-2xl font-bold"
+                style={{
+                  background: "linear-gradient(to right, oklch(0.92 0 0), oklch(0.92 0 0 / 0.6))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {stat.value}
               </div>
-            ))}
-          </div>
+              <div className="text-xs" style={{ color: "oklch(0.92 0 0 / 0.45)" }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* ── Skills Grid — relevant tech only ── */}
+      {/* ── Section 2: Proof of Work ─────────────────────────────── */}
+      <section className="space-y-5">
         <div>
-          <h2 className="text-lg font-semibold mb-4">Skills</h2>
-          <SkillsGrid categories={profile.skillCategories} />
+          <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-1">
+            Proof of Work
+          </p>
+          <h2 className="text-2xl font-bold tracking-tight">Relevant Projects</h2>
         </div>
 
-        {/* ── CTA close — dark panel ── */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {proposalData.portfolioProjects.map((project) => (
+            <div
+              key={project.name}
+              className="aesthetic-card p-5 space-y-3"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-base font-semibold leading-snug">{project.name}</h3>
+                {project.url && (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary shrink-0 transition-colors"
+                    style={{ transitionDuration: "var(--dur-normal)" }}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
+
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {project.description}
+              </p>
+
+              {/* Outcome — always present */}
+              <div className="flex items-start gap-2 text-sm" style={{ color: "var(--success)" }}>
+                <TrendingUp className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                <span>{project.outcome}</span>
+              </div>
+
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="px-2 py-0.5 rounded-md text-xs font-mono bg-primary/10 text-primary"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Relevance note */}
+              {project.relevance && (
+                <p className="text-xs italic text-primary/70">
+                  {project.relevance}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Section 3: How I Work ────────────────────────────────── */}
+      <section className="space-y-5">
+        <div>
+          <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-1">
+            Process
+          </p>
+          <h2 className="text-2xl font-bold tracking-tight">How I Work</h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {proposalData.approach.map((step) => (
+            <div key={step.step} className="aesthetic-card p-5 space-y-2">
+              <div className="flex items-center justify-between">
+                <span
+                  className="font-mono text-xs tracking-widest uppercase"
+                  style={{ color: "var(--primary)" }}
+                >
+                  Step {step.step}
+                </span>
+                <span className="font-mono text-xs text-muted-foreground">
+                  {step.timeline}
+                </span>
+              </div>
+              <h3 className="text-base font-semibold">{step.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Section 4: Skills Grid ───────────────────────────────── */}
+      <section className="space-y-5">
+        <div>
+          <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-1">
+            Tech Stack
+          </p>
+          <h2 className="text-2xl font-bold tracking-tight">What I Build With</h2>
+        </div>
+
+        <div className="space-y-3">
+          {proposalData.skills.map((category) => (
+            <div key={category.category} className="aesthetic-card p-4 space-y-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                {category.category}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {category.items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 rounded-md border text-sm font-mono"
+                    style={{
+                      borderColor: "oklch(1 0 0 / 0.10)",
+                      background: "oklch(1 0 0 / 0.04)",
+                      color: "oklch(0.85 0 0 / 0.80)",
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Section 5: CTA ──────────────────────────────────────── */}
+      <section
+        className="relative rounded-2xl overflow-hidden text-center"
+        style={{ background: "oklch(0.06 0.02 var(--primary-h, 220))" }}
+      >
+        {/* Subtle bottom glow */}
         <div
-          className="rounded-lg p-8 space-y-4"
-          style={{ background: "var(--section-dark)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="relative inline-flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--success)]/60 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[color:var(--success)]" />
-            </span>
-            <span className="text-xs text-white/50">Currently available</span>
-          </div>
-          <h2 className="text-xl font-light text-white/60">
-            Let&apos;s build{" "}
-            <span className="font-bold text-white">
-              {APP_CONFIG.projectName}
-            </span>{" "}
-            together
-          </h2>
-          <p className="text-sm text-white/50 leading-relaxed max-w-lg">
-            This demo is a starting point. I can have the production version
-            scoped and started within days of your reply.
-          </p>
-          {/* "Reply on Upwork to start" — text, not a dead link */}
-          <p className="text-sm font-medium text-primary">
-            Reply on Upwork to start
-          </p>
-          <p className="text-sm text-white/40 pt-2">— Humam</p>
-        </div>
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at bottom, oklch(0.65 0.20 220 / 0.08), transparent 70%)",
+          }}
+        />
 
-      </div>
+        <div className="relative z-10 p-8 md:p-12 space-y-4">
+          {/* Pulsing availability indicator */}
+          <div className="flex items-center justify-center gap-2">
+            <span className="relative inline-flex h-2 w-2">
+              <span
+                className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                style={{ background: "var(--success)" }}
+              />
+              <span
+                className="relative inline-flex rounded-full h-2 w-2"
+                style={{ background: "var(--success)" }}
+              />
+            </span>
+            <span
+              className="text-sm"
+              style={{ color: "color-mix(in oklch, var(--success) 80%, white)" }}
+            >
+              {proposalData.cta.availability}
+            </span>
+          </div>
+
+          {/* Headline — tailored */}
+          <h2 className="text-2xl font-bold text-white leading-snug">
+            {proposalData.cta.headline}
+          </h2>
+
+          {/* Body — specific */}
+          <p
+            className="max-w-lg mx-auto leading-relaxed"
+            style={{ color: "oklch(0.92 0 0 / 0.55)" }}
+          >
+            {proposalData.cta.body}
+          </p>
+
+          {/* Primary action — text, not a dead-end button */}
+          <p className="text-lg font-semibold text-white pt-2">
+            {proposalData.cta.action}
+          </p>
+
+          {/* Back to demo */}
+          <a
+            href="/"
+            className="inline-flex items-center gap-1 text-sm cta-back-link"
+          >
+            ← Back to the demo
+          </a>
+
+          {/* Signature */}
+          <p
+            className="pt-4 text-sm border-t mt-4"
+            style={{
+              color: "oklch(0.92 0 0 / 0.30)",
+              borderColor: "oklch(1 0 0 / 0.08)",
+            }}
+          >
+            — Humam
+          </p>
+        </div>
+      </section>
+
     </div>
   );
 }
